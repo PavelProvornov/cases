@@ -79,9 +79,11 @@
 
                 <div class="roulette-carousel__inner-wrapper">
                   <div class="roulette-carousel__col" v-for='(slot, index) in slots' ref='slots' :key="index">
+
                       <!-- wear -->
-                    <div class="roulette-item" v-for='(opt, index) in slot.items' :key="index">
+                    <div class="roulette-item" v-for='(opt, index) in slot.items' :key="index+50">
                       <div class="item-inner" v-if="slot.type === 'wear'">
+                          <p class="rt">{{opt}}</p>
                           <div class="roulette-item__title">Wear: <span>0.0012</span></div>
                           <div class="roulette-item__quality-bar">
                             <div class="factory"></div>
@@ -93,6 +95,7 @@
                       </div>
                       <!-- type -->
                       <div class="item-inner" v-if="slot.type === 'type'">
+                          <p class="rt">{{opt}}</p>
                         <div class="roulette-item__image-wrapper droptype-wrapper">
                             <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
                         </div>
@@ -100,17 +103,19 @@
                       </div>
                       <!-- weapon -->
                       <div class="item-inner" v-if="slot.type === 'weapon'">
+                          <!-- <p class="rt">{{opt}}</p> -->
                         <div class="roulette-item__image-wrapper weapon-wrapper">
                             <span class="higlight"></span>
                             <span class="corner"></span>
                             <span class="corner"></span>
                             <span class="corner"></span>
                             <span class="corner"></span>
-                            <img src="@/assets/gunnoskin.png" alt="" class="roulette-item__img weapon">
+                            <img :src="opt" alt="" class="roulette-item__img weapon">
                         </div>
                       </div>
                       <!-- skin -->
                       <div class="item-inner" v-if="slot.type === 'skin'">
+                          <p class="rt">{{opt}}</p>
                         <div class="roulette-item__image-wrapper weapon-wrapper">
                             <span class="higlight"></span>
                             <span class="corner"></span>
@@ -122,20 +127,23 @@
                       </div>
                       <!-- bonus -->
                       <div class="item-inner" v-if="slot.type === 'bonus'">
+                          <p class="rt">{{opt}}</p>
                         <div class="bonus-img-wrapper">
                             <img src="@/assets/stattrack.png" alt="" class="bonus-img">
                         </div>
                       </div>
                       <!-- sum -->
                       <div class="item-inner" v-if="slot.type === 'sum'">
+                          <p class="rt">{{opt}}</p>
                         <div class="summury-revenue">
                             0456456456₽
                         </div>
                       </div>
                     </div>
 
-                    <div class="roulette-item clone" v-for='(opt, index) in slot.items' :key="index">
+                    <div class="roulette-item clone" v-for='(n, index) in 2' :key="index+100">
                       <div class="item-inner" v-if="slot.type === 'wear'">
+                          <p class="rt">{{slot[n]}}</p>
                           <div class="roulette-item__title">Wear: <span>0.0012</span></div>
                           <div class="roulette-item__quality-bar">
                             <div class="factory"></div>
@@ -147,6 +155,7 @@
                       </div>
                       <!-- type -->
                       <div class="item-inner" v-if="slot.type === 'type'">
+                          <p class="rt">{{slot.items[n]}}</p>
                         <div class="roulette-item__image-wrapper droptype-wrapper">
                             <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
                         </div>
@@ -154,17 +163,19 @@
                       </div>
                       <!-- weapon -->
                       <div class="item-inner" v-if="slot.type === 'weapon'">
+                          <p class="rt">{{slot[n]}}</p>
                         <div class="roulette-item__image-wrapper weapon-wrapper">
                             <span class="higlight"></span>
                             <span class="corner"></span>
                             <span class="corner"></span>
                             <span class="corner"></span>
                             <span class="corner"></span>
-                            <img src="@/assets/gunnoskin.png" alt="" class="roulette-item__img weapon">
+                            <img :src="slot.items[n]" alt="" class="roulette-item__img weapon">
                         </div>
                       </div>
                       <!-- skin -->
                       <div class="item-inner" v-if="slot.type === 'skin'">
+                          <p class="rt">{{slot[n]}}</p>
                         <div class="roulette-item__image-wrapper weapon-wrapper">
                             <span class="higlight"></span>
                             <span class="corner"></span>
@@ -176,12 +187,14 @@
                       </div>
                       <!-- bonus -->
                       <div class="item-inner" v-if="slot.type === 'bonus'">
+                          <p class="rt">{{slot[n]}}</p>
                         <div class="bonus-img-wrapper">
                             <img src="@/assets/stattrack.png" alt="" class="bonus-img">
                         </div>
                       </div>
                       <!-- sum -->
                       <div class="item-inner" v-if="slot.type === 'sum'">
+                          <p class="rt">{{slot[n]}}</p>
                         <div class="summury-revenue">
                             0456456456₽
                         </div>
@@ -374,10 +387,10 @@ export default {
             {
                 type: "weapon",
                 items: [
-                    "cycling",
-                    "walking",
-                    "swimming",
-                    "flying",
+                    "https://c7.hotpng.com/preview/624/510/354/trigger-smith-wesson-sw22-victory-firearm-airsoft-guns-gun-barrel-victory-royale-no-background.jpg",
+                    "https://w7.pngwing.com/pngs/690/257/png-transparent-30-06-springfield-rifle-caliber-weapon-hunting-carbon-fiber-background-weapon-rifle-kulovnice.png",
+                    "https://photoshop-kopona.com/uploads/posts/2019-08/1566205153_32.jpg",
+                    "https://www.meme-arsenal.com/memes/5cdb57938ae26b891c8c778b50f58da7.jpg",
                 ]
             },
             {
@@ -423,11 +436,12 @@ export default {
             console.log("choice", i, data.items[choice])
             const opts = {
                 el: slot,
-                finalPos: choice * 180,
-                startOffset: 2000 + Math.random() * 500 + i * 500,
-                height: data.items.length * 180,
-                duration: 3000 + i * 700, // milliseconds
+                finalPos: choice,
+                startOffset: 3000 + Math.random() * 5000,
+                height: data.items.length * 117,
+                duration: 3000, // milliseconds
                 isFinished: false,
+                max: data.items.length
             }
             return opts
         })
@@ -445,13 +459,22 @@ export default {
                     return
                 }
                 const timeRemaining = Math.max(opt.duration - timeDiff, 0)
-                const power = 3
-                const offset = ( Math.pow(timeRemaining, power) / Math.pow(opt.duration, power) ) * opt.startOffset
-                // negative, such that slots move from top to bottom
-                const pos = -1 * Math.floor((offset + opt.finalPos) % opt.height)
+                const power = 1          
+                const offset = ( Math.pow(timeRemaining, power) / Math.pow(opt.duration, power) ) * (opt.startOffset > opt.height*10 ?  opt.startOffset : opt.height*10)                
+                // // negative, such that slots move from top to bottom
+                const finalCords = Array.from(opt.el.querySelectorAll(".roulette-item"))[opt.finalPos ? opt.finalPos : opt.max].offsetTop - Array.from(opt.el.querySelectorAll(".roulette-item"))[opt.finalPos].clientHeight 
+                let coord = pos
+                if (offset/134 > 3) {
+                  coord = offset
+                } else {
+                  coord = 0
+                }
+                const pos = -1 * Math.floor((coord + finalCords) % opt.height)  
                 opt.el.style.transform = "translateY(" + pos + "px)"
+                if (pos === finalCords) {
+                    opt.isFinished = true
+                }
                 if ( timeDiff > opt.duration ) {
-                console.log('finished', opt, pos, opt.finalPost)
                     opt.isFinished = true
                 }
             })
@@ -464,6 +487,16 @@ export default {
                 next( this.animate )
             }
     }
+  },
+  mounted() {
+      window.addEventListener('keypress', e=>{
+          if (e.key === 'Enter') {
+              this.start()
+          }
+      })
   }
 }
 </script>
+
+<style lang="css">
+</style>
