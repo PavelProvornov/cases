@@ -19,38 +19,38 @@
             </nav>
             <div class="top-bar__user-bar user-bar">
                 <div class="user-bar__lang">
-                <span class="user-bar__lang--selected">Ru</span>
-                <ul class="user-bar__lang-option">
+                <span class="user-bar__lang--selected" @click="langShown = !langShown">Ru</span>
+                <ul v-if="langShown" class="user-bar__lang-option" style="display: block">
                     <li class="user-bar__lang-option-item">Ru</li>
                     <li class="user-bar__lang-option-item">Eng</li>
                 </ul>
                 </div>
                 <div class="user-bar__social">
-                <a href="" class="user-bar__social-item social-vk"></a>
-                <a href="" class="user-bar__social-item social-tg"></a>
-                <a href="" class="user-bar__social-item social-tw"></a>
-                <a href="" class="user-bar__social-item social-fb"></a>
-                <a href="" class="user-bar__social-item social-st"></a>
+                    <a class="user-bar__social-item social-vk" v-if="$root.user === null" href="/auth/vk"></a>
+                    <a href="" class="user-bar__social-item social-tg"></a>
+                    <a href="" class="user-bar__social-item social-tw"></a>
+                    <a class="user-bar__social-item social-fb" v-if="$root.user === null" href="/auth/fb"></a>
+                    <a class="user-bar__social-item social-st" v-if="$root.user === null" href="/auth/steam"></a>
                 </div>
-                <div class="user-bar__avatar">
-                <div class="user-bar__avatar-wrapper">
-                    <img src="@/assets/avatar.jpg" alt="" class="user-bar__avatar-item">
+                <div class="user-bar__avatar" v-if="$root.user">
+                    <div class="user-bar__avatar-wrapper">
+                        <img :src="$root.user.avatar || ''" alt="" class="user-bar__avatar-item">
+                    </div>
                 </div>
-                </div>
-                <div class="user-bar__info">
-                <div class="user-bar__info-row">
-                    <router-link style="cursor: pointer" to="/profile" tag="p" class="user-bar__info-name">
-                        Username
-                    </router-link>
-                    <button class="logout-btn"></button>
-                </div>
-                <div class="user-bar__info-row">
-                    <p class="user-bar__info-balance">
-                    Баланс:
-                    <span class="balance">500.00$</span>
-                    </p>
-                    <button class="balance-replenish"></button>
-                </div>
+                <div class="user-bar__info"  v-if="$root.user">
+                    <div class="user-bar__info-row">
+                        <router-link style="cursor: pointer" to="/profile" tag="p" class="user-bar__info-name">
+                            {{$root.user.username || 'username'}}
+                        </router-link>
+                        <button class="logout-btn"></button>
+                    </div>
+                    <div class="user-bar__info-row">
+                        <p class="user-bar__info-balance">
+                        Баланс:
+                        <span class="balance">{{ $root.user.balance  }} {{ $root.getCurrency() }}</span>
+                        </p>
+                        <button class="balance-replenish" @click="$root.openFill"></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <p class="promo-info__description">+10 к пополнению</p>
                 </div>
                 <div class="promo-info__code">
-                <p class="code-item">COUNTERVEGAS10</p>
+                <p class="code-item">{{$root.modal.promocode}}</p>
                 <button class="flag-icon"></button>
                 </div>
             </div>
@@ -118,6 +118,11 @@
 
 <script>
 export default {
+    data() {
+        return {
+            langShown: false
+        }
+    },
     props: {
         stats: Object
     }

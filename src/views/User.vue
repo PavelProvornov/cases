@@ -161,3 +161,158 @@
       </div>
     </div>
 </template>
+
+<script>
+    import axios from 'axios';
+    import $ from 'jquery'
+
+    export default {
+        data() {
+            return {
+                user: [],
+                activeTab: 'items',
+                type: '',
+                trade_link: '',
+                items: [],
+                contracts: [],
+                page: 0,
+                morePage: false,
+                loadingMore: false
+            }
+        },
+        methods: {
+            async get() {
+                const request = await axios.post('/api/users/get', {id: this.$route.params.id});
+
+                if (request.data.success) {
+                    this.type = request.data.type;
+                    this.user = request.data.user;
+                    this.trade_link = this.user.trade_link;
+
+                    this.loadItems();
+
+                    this.$root.hideLoading();
+                } else {
+                    this.$router.go(-1);
+                }
+            },
+            async saveLink() {
+                const request = await axios.post('/api/users/saveLink', {trade_link: this.trade_link});
+                const data = request.data;
+
+                $.wnoty({
+                    type: data.type,
+                    message: this.$t(`users.${data.message}`)
+                });
+            },
+            async loadItems() {
+                this.loadingMore = true;
+                const request = await axios.post('/api/users/items', {id: this.$route.params.id, page: this.page += 1});
+
+                const array = this.items;
+                Array.prototype.push.apply(array, request.data.items);
+
+                this.items = array;
+                this.morePage = request.data.more;
+                this.loadingMore = false;
+            },
+            async loadContracts() {
+                this.loadingMore = true;
+            },
+            async sellItem(id, i) {
+                const request = await axios.post('/api/users/sell', {id: id});
+                const data = request.data;
+
+                this.$root.getBalance();
+
+                if (data.type === 'success') {
+                    if (this.$i18n.locale === 'ru') {
+                        if (this.user.allPrice[0].myBet !== null) this.user.allPrice[0].myBet = parseInt(this.user.allPrice[0].myBet) - parseInt(this.items[i].item.price);
+                    } else {
+                        if (this.user.allPrice[0].myBet_en !== null) this.user.allPrice[0].myBet_en = parseFloat(this.user.allPrice[0].myBet_en) - parseFloat(this.items[i].item.price_en);
+                    }
+                    this.items[i].status = 1;
+                    this.$forceUpdate();
+                }
+
+                $.wnoty({
+                    type: data.type,
+                    message: this.$t(`users.${data.message}`)
+                });
+            },
+            async buyItem(id, i) {
+                $.wnoty({
+                    type: 'info',
+                    message: this.$t('users.waitRequest')
+                });
+
+                const request = await axios.post('/api/users/buy', {id: id});
+                const data = request.data;
+
+                if (data.type === 'success') {
+                    this.items[i].status = data.status;
+                    this.$forceUpdate();
+                }
+
+                $.wnoty({
+                    type: data.type,
+                    message: this.$t(`users.${data.message}`)
+                });
+            },
+            async loadTab(tab) {
+                switch (tab) {
+                    case 'items':
+                        this.loadItems();
+                        this.activeTab = 'items';
+                        break;
+                    case 'contracts':
+                        this.loadContracts();
+                        this.activeTab = 'contracts';
+                        break;
+                }
+            },
+            async sellAll() {
+                $.wnoty({
+                    type: 'info',
+                    message: this.$t('users.selling')
+                });
+
+                const request = await axios.post('/api/users/sellAll');
+                const data = request.data;
+
+                if (data.type === 'success') {
+                    for (let i in this.items) {
+                        this.items[i].status = 1;
+                    }
+                    this.$root.getBalance();
+                    this.user.allPrice[0].myBet = 0;
+                    this.$forceUpdate();
+                }
+
+                $.wnoty({
+                    type: data.type,
+                    message: this.$t(`users.${data.message}`)
+                });
+            }
+        },
+        mounted() {
+            this.$root.showLoading();
+            this.get();
+        },
+        sockets: {
+            setItemStatus: function (drop) {
+                if (this.$root.user !== null && parseInt(drop.user_id) === parseInt(this.$root.user.id)) {
+                    for (let [key, value] in this.items) {
+                        if (this.items[key].id === drop.id) {
+                            this.items[key].status = drop.status;
+                            if (drop.status === 5) this.items[key].trade_id = drop.trade_id;
+                            if (drop.status === 6) this.items[key].hover = 'item--hover';
+                            this.$forceUpdate();
+                        }
+                        void value
+                    }
+                }
+            }
+        }
+    }
+</script>

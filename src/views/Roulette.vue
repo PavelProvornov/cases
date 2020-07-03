@@ -1,4 +1,5 @@
 <template>
+
     <div class="roulette">
         <div class="roulette-jackpot">
           <img src="@/assets/jptitle.png" alt="" class="roulette-jackpot__image">
@@ -13,8 +14,7 @@
             <span>P</span>
           </div>
         </div>
-
-        <div class="roulette__body roulette-carousel">
+            <div class="roulette__body roulette-carousel">
 
             <div class="roulette-carousel__controls roulette-carousel__controls--dropdown">
               <div class="control-item control-item__dropdown">
@@ -75,156 +75,119 @@
                 <span class="carousel-coner"></span>
 
                 <div class="roulette-carousel__inner-wrapper">
-                  <div class="roulette-carousel__col">
-                    <div class="roulette-item">
-                      <div class="roulette-item__title">Wear: <span>0.0012</span></div>
-                      <div class="roulette-item__quality-bar">
-                        <div class="factory"></div>
-                        <div class="minimal"></div>
-                        <div class="field"></div>
-                        <div class="worn"></div>
-                        <div class="scarred"></div>
+                  <div class="roulette-carousel__col" v-for='(slot, index) in slots' ref='slots' :key="index">
+
+                    <div class="roulette-item" v-for='(opt, index) in slot.items' :key="index+50">
+                      <div class="item-inner" v-if="slot.type === 'wear'">
+                          <div class="roulette-item__title">Wear: <span>0.0012</span></div>
+                          <div class="roulette-item__quality-bar">
+                            <div class="factory"></div>
+                            <div class="minimal"></div>
+                            <div class="field"></div>
+                            <div class="worn"></div>
+                            <div class="scarred"></div>
+                          </div>
+                      </div>
+                      <!-- type -->
+                      <div class="item-inner" v-if="slot.type === 'type'">
+                        <div class="roulette-item__image-wrapper droptype-wrapper">
+                            <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
+                        </div>
+                        <p class="droptype-title">Contraband</p>
+                      </div>
+                      <!-- weapon -->
+                      <div class="item-inner" v-if="slot.type === 'weapon'">
+                        <div class="roulette-item__image-wrapper weapon-wrapper">
+                            <span class="higlight"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <img :src="opt" alt="" class="roulette-item__img weapon">
+                        </div>
+                      </div>
+                      <!-- skin -->
+                      <div class="item-inner" v-if="slot.type === 'skin'">
+                        <div class="roulette-item__image-wrapper weapon-wrapper">
+                            <span class="higlight"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <img src="@/assets/gunExample.png" alt="" class="roulette-item__img weapon">
+                        </div>
+                      </div>
+                      <!-- bonus -->
+                      <div class="item-inner" v-if="slot.type === 'bonus'">
+                        <div class="bonus-img-wrapper">
+                            <img src="@/assets/stattrack.png" alt="" class="bonus-img">
+                        </div>
+                      </div>
+                      <!-- sum -->
+                      <div class="item-inner" v-if="slot.type === 'sum'">
+                        <div class="summury-revenue">
+                            0456456456₽
+                        </div>
                       </div>
                     </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__title">Wear: <span>0.0012</span></div>
-                      <div class="roulette-item__quality-bar">
-                        <div class="factory"></div>
-                        <div class="minimal"></div>
-                        <div class="field"></div>
-                        <div class="worn"></div>
-                        <div class="scarred"></div>
+
+                    <div class="roulette-item clone" v-for='(n, index) in 2' :key="index+100">
+                      <div class="item-inner" v-if="slot.type === 'wear'">
+
+                          <div class="roulette-item__title">Wear: <span>0.0012</span></div>
+                          <div class="roulette-item__quality-bar">
+                            <div class="factory"></div>
+                            <div class="minimal"></div>
+                            <div class="field"></div>
+                            <div class="worn"></div>
+                            <div class="scarred"></div>
+                          </div>
                       </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__title">Wear: <span>0.0012</span></div>
-                      <div class="roulette-item__quality-bar">
-                        <div class="factory"></div>
-                        <div class="minimal"></div>
-                        <div class="field"></div>
-                        <div class="worn"></div>
-                        <div class="scarred"></div>
+                      <!-- type -->
+                      <div class="item-inner" v-if="slot.type === 'type'">
+
+                        <div class="roulette-item__image-wrapper droptype-wrapper">
+                            <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
+                        </div>
+                        <p class="droptype-title">Contraband</p>
                       </div>
-                    </div>
-                  </div>
-                  <!-- type drop -->
-                  <div class="roulette-carousel__col">
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper droptype-wrapper">
-                        <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
+                      <!-- weapon -->
+                      <div class="item-inner" v-if="slot.type === 'weapon'">
+
+                        <div class="roulette-item__image-wrapper weapon-wrapper">
+                            <span class="higlight"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <img :src="slot.items[n]" alt="" class="roulette-item__img weapon">
+                        </div>
                       </div>
-                      <p class="droptype-title">Contraband</p>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper droptype-wrapper">
-                        <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
+                      <!-- skin -->
+                      <div class="item-inner" v-if="slot.type === 'skin'">
+
+                        <div class="roulette-item__image-wrapper weapon-wrapper">
+                            <span class="higlight"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <span class="corner"></span>
+                            <img src="@/assets/gunExample.png" alt="" class="roulette-item__img weapon">
+                        </div>
                       </div>
-                      <p class="droptype-title">Contraband</p>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper droptype-wrapper">
-                        <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
+                      <!-- bonus -->
+                      <div class="item-inner" v-if="slot.type === 'bonus'">
+
+                        <div class="bonus-img-wrapper">
+                            <img src="@/assets/stattrack.png" alt="" class="bonus-img">
+                        </div>
                       </div>
-                      <p class="droptype-title">Contraband</p>
-                    </div>
-                  </div>
-                  <!-- weapon -->
-                  <div class="roulette-carousel__col">
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper weapon-wrapper">
-                        <span class="higlight"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <img src="@/assets/gunnoskin.png" alt="" class="roulette-item__img weapon">
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper weapon-wrapper">
-                        <span class="higlight"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <img src="@/assets/gunnoskin.png" alt="" class="roulette-item__img weapon">
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper weapon-wrapper">
-                        <span class="higlight"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <img src="@/assets/gunnoskin.png" alt="" class="roulette-item__img weapon">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- skin -->
-                  <div class="roulette-carousel__col">
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper weapon-wrapper">
-                        <span class="higlight"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <img src="@/assets/gunExample.png" alt="" class="roulette-item__img weapon">
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper weapon-wrapper">
-                        <span class="higlight"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <img src="@/assets/gunExample.png" alt="" class="roulette-item__img weapon">
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="roulette-item__image-wrapper weapon-wrapper">
-                        <span class="higlight"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <span class="corner"></span>
-                        <img src="@/assets/gunExample.png" alt="" class="roulette-item__img weapon">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="roulette-carousel__col">
-                    <div class="roulette-item">
-                      <div class="bonus-img-wrapper">
-                        <img src="@/assets/stattrack.png" alt="" class="bonus-img">
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="bonus-img-wrapper">
-                        <img src="@/assets/respin.png" alt="" class="bonus-img">
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="bonus-img-wrapper">
-                        <img src="@/assets/stattrack.png" alt="" class="bonus-img">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="roulette-carousel__col">
-                    <div class="roulette-item">
-                      <div class="summury-revenue">
-                        0456456456₽
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="summury-revenue">
-                        0456456456₽
-                      </div>
-                    </div>
-                    <div class="roulette-item">
-                      <div class="summury-revenue">
-                        0456456456₽
+                      <!-- sum -->
+                      <div class="item-inner" v-if="slot.type === 'sum'">
+
+                        <div class="summury-revenue">
+                            0456456456₽
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -242,7 +205,7 @@
               </div>
               <div class="spin-controls__bet">
                 <input type="number" class="spin-controls__bet-input" placeholder="Сумма от 1₽ до 5000₽">
-                <div class="spin-controls__bet-btn">
+                <div class="spin-controls__bet-btn" @click='start'>
                   luck
                   <i class="luck-ico"></i>
                 </div>
@@ -372,244 +335,158 @@
                 </div>
               </div>
         </div>
-      </div>
+        </div>
     </div>
 </template>
 
+<script>
+const next = window.requestAnimationFrame ||
+   window.webkitRequestAnimationFrame ||
+   window.mozRequestAnimationFrame ||
+   window.msRequestAnimationFrame ||
+   window.oRequestAnimationFrame ||
+   function(cb) { window.setTimeout(cb, 1000/60) }
 
-// <script>
-//     import axios from 'axios';
-//     import $ from 'jquery';
-//     import {TweenLite, Power2, CSSPlugin} from 'gsap';
+export default {
+	data () {
+        return {
+        slots: [
+            {
+                type: "wear",
+                items: [
+                    "today",
+                    "next week",
+                    "last year",
+                    "tomorrow",
+                    "yesterday",
+                ]
+            }, 
+            {
+                type: "type",
+                items: [
+                    "at home",
+                    "at work",
+                    "at school",
+                    "at the gym",
+                    "at the park",
+                    "at the beach",
+                    "at the sidewalk",
+                    "at the city",
+                    ]
+            }, 
+            {
+                type: "weapon",
+                items: [
+                    "https://c7.hotpng.com/preview/624/510/354/trigger-smith-wesson-sw22-victory-firearm-airsoft-guns-gun-barrel-victory-royale-no-background.jpg",
+                    "https://w7.pngwing.com/pngs/690/257/png-transparent-30-06-springfield-rifle-caliber-weapon-hunting-carbon-fiber-background-weapon-rifle-kulovnice.png",
+                    "https://photoshop-kopona.com/uploads/posts/2019-08/1566205153_32.jpg",
+                    "https://www.meme-arsenal.com/memes/5cdb57938ae26b891c8c778b50f58da7.jpg",
+                ]
+            },
+            {
+                type: "skin",
+                items: [
+                    "cycling",
+                    "walking",
+                    "swimming",
+                    "flying",
+                ]
+            },
+            {
+                type: "bonus",
+                items: [
+                    "cycling",
+                    "walking",
+                    "swimming",
+                    "flying",
+                ]
+            },
+            {
+                type: "sum",
+                items: [
+                    "cycling",
+                    "walking",
+                    "swimming",
+                    "flying",
+                ]
+            }
+        ],
+        opts: null,
+        startedAt: null,
+        }
+    }, 
+    methods: {
+    start: function() {
+        if (this.opts) {
+            return
+        }	
+        this.opts = this.slots.map( (data, i) => {
+            const slot = this.$refs.slots[i]
+            const choice = Math.floor( Math.random() * data.items.length )
+            console.log("choice", i, data.items[choice])
+            const opts = {
+                el: slot,
+                finalPos: choice,
+                startOffset: 3000 + Math.random() * 5000,
+                height: data.items.length * 117,
+                duration: 3000, // milliseconds
+                isFinished: false,
+                max: data.items.length
+            }
+            return opts
+        })
+        next( this.animate )
+    },
+    
+    animate: function(timestamp) {
+            if (this.startedAt == null) {
+                this.startedAt = timestamp
+            }
+            const timeDiff = timestamp - this.startedAt
+      
+            this.opts.forEach( opt => {
+                if (opt.isFinished) {
+                    return
+                }
+                const timeRemaining = Math.max(opt.duration - timeDiff, 0)
+                const power = 1          
+                const offset = ( Math.pow(timeRemaining, power) / Math.pow(opt.duration, power) ) * (opt.startOffset > opt.height*10 ?  opt.startOffset : opt.height*10)                
+                // // negative, such that slots move from top to bottom
+                const finalCords = Array.from(opt.el.querySelectorAll(".roulette-item"))[opt.finalPos ? opt.finalPos : opt.max].offsetTop - Array.from(opt.el.querySelectorAll(".roulette-item"))[opt.finalPos].clientHeight 
+                let coord = pos
+                if (offset/134 > 3) {
+                  coord = offset
+                } else {
+                  coord = 0
+                }
+                const pos = -1 * Math.floor((coord + finalCords) % opt.height)  
+                opt.el.style.transform = "translateY(" + pos + "px)"
+                if (pos === finalCords) {
+                    opt.isFinished = true
+                }
+                if ( timeDiff > opt.duration ) {
+                    opt.isFinished = true
+                }
+            })
+      
+            if (this.opts.every( o => o.isFinished )) {
+                this.opts = null
+                this.startedAt = null
+                console.log('finished')
+            } else {
+                next( this.animate )
+            }
+    }
+  },
+  mounted() {
+      window.addEventListener('keypress', e=>{
+          if (e.key === 'Enter') {
+              this.start()
+          }
+      })
+  }
+}
+</script>
 
-//     export default {
-//         data() {
-//             return {
-//                 box: [],
-//                 price: 0,
-//                 items: [],
-//                 selectedMethod: 1,
-//                 audio: {
-//                     ready: false,
-//                     scroll: null,
-//                     open: null
-//                 },
-//                 game: {
-//                     animationDuration: 10,
-//                     itemWidth: 118,
-//                     padding: 6,
-//                     clearance: 8,
-//                     startOffset: 3
-//                 },
-//                 currentPosition: {
-//                     x: 0,
-//                     prevX: 0
-//                 },
-//                 newItems: [],
-//                 ready: false,
-//                 fastOpen: false,
-//                 animation: null,
-//                 showPrize: false,
-//                 isMultiple: false,
-//                 fullPrice: 0
-//             }
-//         },
-//         methods: {
-//             async get() {
-//                 const request = await axios.post('/api/cases/one', {name_url: this.$route.params.name});
-//                 if (request.data.success) {
-//                     this.box = request.data.box;
-//                     this.items = request.data.items;
-
-//                     if (this.$i18n.locale === 'ru') {
-//                         this.price = this.box.price;
-//                     } else {
-//                         this.price = this.box.price_en;
-//                     }
-//                     this.$root.hideLoading();
-//                 } else {
-//                     this.$router.go(-1);
-//                 }
-//             },
-//             async selectMethod(number) {
-//                 this.selectedMethod = number;
-//                 if (this.$i18n.locale === 'ru') {
-//                     this.price = this.box.price * number;
-//                 } else {
-//                     this.price = (this.box.price_en * number).toFixed(2);
-//                 }
-//             },
-//             async setAudio() {
-//                 this.audio.scroll = new Audio();
-//                 this.audio.scroll.src = '/audio/case_scroll.mp3';
-//                 this.audio.scroll.volume = .2;
-//             },
-//             async getRandomVal(min, max) {
-//                 return Math.random() * (max - min) + min;
-//             },
-//             getRandomItem() {
-//                 return this.items[Math.floor(Math.random() * this.items.length)]
-//             },
-//             setGames(destinationCeil) {
-//                 let containers = [];
-//                 this.newItems.forEach((game, i) => {
-//                     for (let i = 0; i < destinationCeil + 5; i++) {
-//                         const randomItem = this.getRandomItem();
-
-//                         game.content.push(randomItem);
-//                     }
-
-//                     game.content[destinationCeil] = game.drop;
-//                     containers.push($(`#roll-${i}`));
-//                 });
-//                 containers.unshift(this.currentPosition);
-//                 return containers;
-//             },
-//             checkPlaySound() {
-//                 const game = this.game;
-//                 const currPosition = Math.floor(-1 * (this.currentPosition.x + game.itemWidth / 2) / (game.itemWidth + game.padding));
-//                 if (currPosition !== this.currentPosition.prevX) {
-//                     this.currentPosition.prevX = currPosition;
-//                     this.playScroll();
-//                 }
-//             },
-//             playScroll() {
-//                 this.audio.scroll.currentTime = 0;
-//                 this.audio.scroll.play();
-//             },
-//             async open(type) {
-//                 const request = await axios.post('/api/cases/open', {
-//                     id: this.box.id,
-//                     count: this.selectedMethod,
-//                     type: type
-//                 });
-//                 const data = request.data;
-//                 if (!data.success) return $.wnoty({type: 'error', message: this.$t(`box.${data.message}`)});
-//                 this.newItems = data.data.map((item, i) => ({
-//                     content: [],
-//                     id: item.id,
-//                     drop: item.item,
-//                     node: null
-//                 }));
-
-//                 await this.$root.getBalance();
-//                 this.audio.open.play();
-
-//                 if (type === 'default') {
-//                     this.setAudio();
-
-//                     const destinationCeil = Math.floor(await this.getRandomVal(30, 45));
-//                     let destinationPosition = -1 * ((destinationCeil - this.game.startOffset) * (this.game.itemWidth + this.game.padding)) + this.game.itemWidth / 2;
-//                     destinationPosition -= await this.getRandomVal(this.game.clearance, this.game.itemWidth - this.game.clearance);
-
-//                     const containers = this.setGames(destinationCeil);
-
-//                     this.ready = true;
-//                     this.animation = TweenLite.to(containers, this.game.animationDuration, {
-//                         x: destinationPosition,
-//                         force3D: true,
-//                         onComplete: () => {
-//                             this.setPrize();
-//                         },
-//                         onUpdate: this.checkPlaySound,
-//                         ease: Power2.easeOut
-//                     });
-//                 } else {
-//                     this.setPrize();
-//                 }
-//             },
-//             setPrize() {
-//                 const audio = new Audio();
-//                 audio.src = '/audio/case_reveal.mp3';
-//                 audio.volume = .2;
-
-//                 audio.play();
-
-//                 if (this.newItems.length > 1) this.isMultiple = true;
-
-//                 if (!this.isMultiple) {
-//                     const item = this.newItems[0]['drop'];
-
-//                     if (this.$i18n.locale === 'ru') {
-//                         this.fullPrice = item.price.toFixed(2);
-//                     } else {
-//                         this.fullPrice = item.price_en.toFixed(2);
-//                     }
-//                 } else {
-//                     if (this.$i18n.locale === 'ru') {
-//                         this.fullPrice = parseFloat(this.newItems.reduce((sum, current) => sum + current.drop.price, 0).toFixed(2));
-//                     } else {
-//                         this.fullPrice = parseFloat(this.newItems.reduce((sum, current) => sum + current.drop.price_en, 0).toFixed(2));
-//                     }
-//                 }
-
-//                 this.showPrize = true;
-//             },
-//             refresh() {
-//                 this.audio.ready = false;
-//                 this.audio.scroll = false;
-//                 this.game = {
-//                     animationDuration: 10,
-//                     itemWidth: 118,
-//                     padding: 6,
-//                     clearance: 8,
-//                     startOffset: 3
-//                 };
-//                 this.currentPosition = {
-//                     x: 0,
-//                     prevX: 0
-//                 };
-//                 this.newItems = [];
-//                 this.ready = false;
-//                 this.fastOpen = false;
-//                 this.animation = null;
-//                 this.showPrize = false;
-//                 this.isMultiple = false;
-//                 this.fullPrice = 0;
-//             },
-//             multipleSell(id, position) {
-//                 this.sellItem(id);
-
-//                 const array = this.newItems;
-//                 array.splice(position, 1);
-
-//                 this.newItems = array;
-
-//                 if (this.newItems.length === 0) this.refresh();
-//             },
-//             sell() {
-//                 if (!this.isMultiple) {
-//                     this.sellItem(this.newItems[0].id);
-//                 } else {
-//                     this.sellItem(this.newItems.map(order => order.id));
-//                 }
-
-//                 this.refresh();
-//             },
-//             async sellItem(id) {
-//                 const request = await axios.post('/api/users/sell', {id: id});
-//                 const data = request.data;
-
-//                 this.$root.getBalance();
-
-//                 $.wnoty({
-//                     type: data.type,
-//                     message: this.$t(`box.${data.message}`)
-//                 });
-//             }
-//         },
-//         mounted() {
-//             this.audio.open = new Audio();
-//             this.audio.open.src = '/audio/case_open.mp3';
-//             this.audio.open.volume = .2;
-
-//             this.$root.showLoading();
-//             this.get();
-//         },
-//         destroyed() {
-//             if (this.animation !== null) {
-//                 this.animation.kill();
-//             }
-//         }
-//     }
-// </script>
+<style lang="css">
+</style>

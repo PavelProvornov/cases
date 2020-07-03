@@ -11,8 +11,6 @@ import User from "./views/User.vue"
 import Faq from "./views/Faq.vue"
 import Livetrade from "./views/Livetrade.vue"
 
-import Test from "./views/Test.vue"
-
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -47,11 +45,6 @@ export default new VueRouter({
                     path: '/trade',
                     name: 'livetrade',
                     component: Livetrade
-                },
-                {
-                    path: '/test',
-                    name: 'test',
-                    component: Test
                 }
             ]
         }
