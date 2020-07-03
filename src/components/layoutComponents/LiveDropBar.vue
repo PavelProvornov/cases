@@ -14,44 +14,12 @@
                 <i></i>
             </button>
             </div>
-            <div class="live-drop__list">
-            <div class="live-drop__list-item rare-purple">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-yellow">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-basic">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-basic">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-yellow">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-basic">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-purple">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-yellow">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            <div class="live-drop__list-item rare-purple">
-                <span class="live-drop__list-item--arrow"></span>
-                <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
-            </div>
-            </div>
+                <transition-group name="list-complete" tag="div" style="justify-content:flex-start" class="live-drop__list">
+                    <div class="live-drop__list-item rare-purple list-complete-item" style="height: 125px" v-for="item of live" :key="item">
+                        <span class="live-drop__list-item--arrow"></span>
+                        <img src="@/assets/gunExample.png" alt="" class="live-drop__image">
+                    </div>
+                </transition-group>
         </div>
     </div>
 </template>
@@ -65,6 +33,9 @@ export default {
             live: [],
         }
     },
+    // props: {
+    //     liveDrop: Array
+    // },
     methods: {
         setOnline(online) {
             this.stats.online = online;
@@ -111,6 +82,29 @@ export default {
     },
     mounted() {
         this.getLiveDrop();
+        setInterval(()=>{
+            this.live.unshift(Math.random())
+            if (this.live.length >= 9) {
+                this.live.pop()
+            }
+        }, 2000)
     }
 }
 </script>
+
+<style>
+.list-complete-enter, .list-complete-leave-to
+/* .list-complete-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+
+.list-complete-item {
+  transition: all 1s;
+  display: inline-block;
+  margin-right: 10px;
+}
+</style>

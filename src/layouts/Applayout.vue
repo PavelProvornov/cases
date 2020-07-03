@@ -1,6 +1,6 @@
 <template>
     <div id="app" >
-        <Sidebar :liveDrop="stats.live"></Sidebar>
+        <Sidebar></Sidebar>
         <div class="container">
             <Topbar :stats="stats"></Topbar>
             <div class="content">
