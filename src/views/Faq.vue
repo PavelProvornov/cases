@@ -1,6 +1,6 @@
 <template>
     <div class="faq">
-      <h1 class="content-title">Профиль игрока</h1>
+      <h1 class="content-title">FAQ</h1>
       <div class="faq__list">
         <FaqItem 
             v-for="(qi, index) in questions" 

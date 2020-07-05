@@ -3,7 +3,7 @@
       <div class="roulette-popup__inner">
         <div class="roulette-popup__screen popup-screen">
           <div class="popup popup-drop">
-            <button class="popup--close" @click="closePopup"></button>
+            <button class="popup--close" style="z-index:99" @click="closePopup"></button>
             <div class="popup-drop__image">
               <img src="" alt="" class="popup-drop__image-item">
             </div>
@@ -26,7 +26,7 @@ export default {
     },
     methods: {
       closePopup() {
-        this.emit('closePrize') 
+        this.$emit('closePrize') 
       }
     }
 }

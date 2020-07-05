@@ -4,13 +4,13 @@
         <div class="faq-question__image">
           <i class="faq-question__image-icon"></i>
         </div>
-        <p class="faq-question__text">
+        <p class="faq-question__text"  @click="unfolded = !unfolded">
           {{question}}
         </p>
         <button class="faq-question__collapse-btn" @click="unfolded = !unfolded"></button>
       </div>
-      <div class="faq-item__answer faq-answer">
-        <div class="faq-answer__body">
+      <div class="faq-item__answer faq-answer" @click="unfolded = !unfolded">
+        <div class="faq-answer__body" >
           <div class="faq-answer__text">
             {{answer}}
           </div>

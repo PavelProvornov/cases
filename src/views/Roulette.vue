@@ -425,6 +425,7 @@ export default {
           opts: null,
           startedAt: null,
           skipAnimation: false,
+          inProgress: false,
           // prize
           showPrize: false,
           prizeItem: {}
@@ -464,6 +465,7 @@ export default {
                   this.startedAt = timestamp
               }
               const timeDiff = timestamp - this.startedAt
+              this.inProgress = true
         
               this.opts.forEach( opt => {
                   if (opt.isFinished) {
@@ -484,6 +486,9 @@ export default {
                   }
                   const pos = -1 * Math.floor((coord + finalCords) % opt.height)  
                   opt.el.style.transform = "translateY(" + pos + "px)"
+                  if (this.skipAnimation) {
+                    opt.isFinished = true
+                  }
                   if (pos === finalCords) {
                       opt.isFinished = true
                   }
@@ -503,6 +508,7 @@ export default {
 
                   // set animation back if skipped
                   this.skipAnimation = false
+                  this.inProgress = false
               } else {
                   next( this.animate )
               }
@@ -515,9 +521,8 @@ export default {
           }
       }),
       window.addEventListener('keypress', e=>{
-          if (e.keyCode == 0 || e.keyCode == 32) {
+          if (this.inProgress === true && (e.keyCode == 0 || e.keyCode == 32)) {
               this.skipAnimation = true
-              console.log('Spacebar')
           }
       })
   }
