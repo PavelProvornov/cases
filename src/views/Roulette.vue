@@ -79,7 +79,6 @@
 
                     <div class="roulette-item" v-for='(opt, index) in slot.items' :key="index+50">
                       <div class="item-inner" v-if="slot.type === 'wear'">
-                        <p class="rt">{{opt}}</p>
                           <div class="roulette-item__title">Wear: <span>0.0012</span></div>
                           <div class="roulette-item__quality-bar">
                             <div class="factory"></div>
@@ -91,7 +90,6 @@
                       </div>
                       <!-- type -->
                       <div class="item-inner" v-if="slot.type === 'type'">
-                        <p class="rt">{{opt}}</p>
                         <div class="roulette-item__image-wrapper droptype-wrapper">
                             <img src="@/assets/droptype.png" alt="" class="roulette-item__img droptype">
                         </div>
@@ -99,7 +97,6 @@
                       </div>
                       <!-- weapon -->
                       <div class="item-inner" v-if="slot.type === 'weapon'">
-                        <p class="rt">{{opt}}</p>
                         <div class="roulette-item__image-wrapper weapon-wrapper">
                             <span class="higlight"></span>
                             <span class="corner"></span>
@@ -111,7 +108,6 @@
                       </div>
                       <!-- skin -->
                       <div class="item-inner" v-if="slot.type === 'skin'">
-                        <p class="rt">{{opt}}</p>
                         <div class="roulette-item__image-wrapper weapon-wrapper">
                             <span class="higlight"></span>
                             <span class="corner"></span>
@@ -123,14 +119,12 @@
                       </div>
                       <!-- bonus -->
                       <div class="item-inner" v-if="slot.type === 'bonus'">
-                        <p class="rt">{{opt}}</p>
                         <div class="bonus-img-wrapper">
                             <img src="@/assets/stattrack.png" alt="" class="bonus-img">
                         </div>
                       </div>
                       <!-- sum -->
                       <div class="item-inner" v-if="slot.type === 'sum'">
-                        <p class="rt">{{opt}}</p>
                         <div class="summury-revenue">
                             0456456456₽
                         </div>
@@ -487,7 +481,9 @@ export default {
                   const pos = -1 * Math.floor((coord + finalCords) % opt.height)  
                   opt.el.style.transform = "translateY(" + pos + "px)"
                   if (this.skipAnimation) {
-                    opt.isFinished = true
+                    setTimeout(()=>{
+                      opt.isFinished = true
+                    }, 500)
                   }
                   if (pos === finalCords) {
                       opt.isFinished = true
@@ -516,7 +512,7 @@ export default {
   },
   mounted() {
       window.addEventListener('keypress', e=>{
-          if (e.key === 'Enter') {
+          if (!this.showPrize && e.key === 'Enter') {
               this.start()
           }
       }),
