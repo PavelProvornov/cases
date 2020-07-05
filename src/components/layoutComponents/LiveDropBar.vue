@@ -33,9 +33,6 @@ export default {
             live: [],
         }
     },
-    // props: {
-    //     liveDrop: Array
-    // },
     methods: {
         setOnline(online) {
             this.stats.online = online;

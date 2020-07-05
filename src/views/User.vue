@@ -10,7 +10,7 @@
               </div>
             </div>
             <div class="user-stat__data">
-              <p class="user-stat__username">Никита</p>
+              <p class="user-stat__username">{{user.username}}</p>
               <i class="user-stat__related-source-ico"></i>
             </div>
           </div>
@@ -59,99 +59,13 @@
           </div>
         </div>
       </div>
-      <h2 class="content-title">Выпашая поебота</h2>
+      <h2 class="content-title">Выпашие предметы</h2>
       <div class="user-cabinet__drop user-drop">
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Какой-то автомат длинноеслово</h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Какой-то автомат </h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
 
-        <div class="user-drop__item drop-item">
+        <div class="user-drop__item drop-item" v-for="(index, i) of items" :key="i">
           <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Th Emperor</h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Какой-то автомат </h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Оченьдилнноеслово20</h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Оченьдилнноеслово20</h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Оченьдилнноеслово20</h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Оченьдилнноеслово20</h4>
-              <div class="drop-item__price">750₽</div>
-              <i class="drop-item__icon"></i>
-              <span class="drop-item__ft">ft</span>
-            <span class="deco"></span>
-          </div>
-        </div>
-
-        <div class="user-drop__item drop-item">
-          <div class="drop-item__inner">
-            <img src="@/assets/gunExample.png" alt="" class="drop-item__image">
-              <h4 class="drop-item__title">Оченьдилнноеслово20</h4>
+            <img :src="item.box.image" alt="" class="drop-item__image">
+              <h4 class="drop-item__title">{{ item.item.name_first }} {{item.item.name_second}}</h4>
               <div class="drop-item__price">750₽</div>
               <i class="drop-item__icon"></i>
               <span class="drop-item__ft">ft</span>
