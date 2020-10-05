@@ -131,7 +131,7 @@
                       </div>
                     </div>
 
-                    <div class="roulette-item clone" v-for='(n, index) in 2' :key="index+100">
+                    <div class="roulette-item clone" v-for='(n, index) in 3' :key="index+100">
                       <div class="item-inner" v-if="slot.type === 'wear'">
 
                           <div class="roulette-item__title">Wear: <span>0.0012</span></div>
@@ -341,8 +341,8 @@
 </template>
 
 <script>
-
 import Prize from "../components/popups/Prize.vue"
+import axios from 'axios';
 
 // render
 const next = window.requestAnimationFrame ||
@@ -508,7 +508,25 @@ export default {
               } else {
                   next( this.animate )
               }
-      }
+      },
+      async getBox() {
+                const request = await axios.post('/api/cases/one', {name_url: this.$route.params.name});
+
+                if (request.data.success) {
+                    this.box = request.data.box;
+                    this.items = request.data.items;
+
+                    if (this.$i18n.locale === 'ru') {
+                        this.price = this.box.price;
+                    } else {
+                        this.price = this.box.price_en;
+                    }
+
+                    this.$root.hideLoading();
+                } else {
+                    this.$router.go(-1);
+                }
+            },
   },
   mounted() {
       window.addEventListener('keypress', e=>{
